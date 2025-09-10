@@ -15,6 +15,20 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from datetime import datetime, time as dt_time, timedelta
 from typing import Optional, Dict, List, Tuple
+from flask import Flask
+from threading import Thread
+
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Bot is alive!"
+
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+t = Thread(target=run)
+t.start()
 
 # ===== CONFIGURATION =====
 # API Keys (In a real production environment, these should be in environment variables or secure storage)
@@ -319,4 +333,5 @@ if __name__ == "__main__":
     try:
         asyncio.run(main())
     except Exception as e:
+
         logger.error(f"Unexpected error: {e}")
