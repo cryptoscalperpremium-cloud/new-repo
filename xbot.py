@@ -356,3 +356,35 @@ threading.Thread(target=lambda: app.run(port=5000)).start()
 
 
 
+
+import asyncio
+import threading
+from flask import Flask
+from pyngrok import ngrok
+
+# --- Flask App ---
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "✅ Crypto Bot is alive!"
+
+def run_flask():
+    app.run(port=5000)
+
+# --- ngrok Tunnel ---
+public_url = ngrok.connect(5000)
+print("🌍 Public URL (use this in UptimeRobot):", public_url)
+
+# Run Flask server in a separate thread
+threading.Thread(target=run_flask).start()
+
+# --- Main Bot Runner ---
+async def runner():
+    try:
+        await main()   # this calls your bot's main loop
+    except asyncio.CancelledError:
+        pass
+
+if __name__ == "__main__":
+    asyncio.run(runner())
