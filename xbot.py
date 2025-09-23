@@ -336,3 +336,23 @@ if __name__ == "__main__":
 
         logger.error(f"Unexpected error: {e}")
 
+
+from flask import Flask
+from pyngrok import ngrok
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "✅ Bot is alive and running!"
+
+# Open a tunnel on port 5000
+public_url = ngrok.connect(5000)
+print("🌍 Public URL:", public_url)
+
+# Run Flask app (non-blocking so bot + scheduler keep working)
+import threading
+threading.Thread(target=lambda: app.run(port=5000)).start()
+
+
+
