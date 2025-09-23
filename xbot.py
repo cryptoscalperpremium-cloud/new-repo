@@ -28,6 +28,10 @@ def home():
 def run_flask():
     app.run(host='0.0.0.0', port=5000)
 
+
+# Set your authtoken
+ngrok.set_auth_token("336sN9ZnXMTWyOwcsXsWWamabsR_2gXbYhtXiFsD7tnQz8hDj")
+
 # Start Flask server in a separate thread
 threading.Thread(target=run_flask, daemon=True).start()
 
@@ -229,3 +233,4 @@ async def main() -> None:
 # ===== RUN BOT =====
 if __name__ == "__main__":
     asyncio.run(main())
+
