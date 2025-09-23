@@ -25,7 +25,7 @@ def home():
     return "Bot is alive!"
 
 def run():
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0', port=5000)
 
 t = Thread(target=run)
 t.start()
@@ -335,3 +335,4 @@ if __name__ == "__main__":
     except Exception as e:
 
         logger.error(f"Unexpected error: {e}")
+
